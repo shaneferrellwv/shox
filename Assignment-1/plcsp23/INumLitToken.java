@@ -8,12 +8,10 @@
  * This code may not be posted on a public web site either during or after the course.  
  */
 
- 
+package plcsp23;
 
-public class PLCException extends Exception {
+public interface INumLitToken extends IToken {
 
-	public PLCException(String message) {
-		super(message);
-	}
+    int getValue();
 
 }

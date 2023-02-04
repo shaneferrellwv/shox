@@ -8,12 +8,12 @@
  * This code may not be posted on a public web site either during or after the course.  
  */
 
- 
+package plcsp23; 
 
-@SuppressWarnings("serial")
-public class LexicalException extends PLCException {
+public class PLCException extends Exception {
 
-	public LexicalException(String message) {
-		super(message);
-	}
+    public PLCException(String message) {
+        super(message);
+    }
+
 }

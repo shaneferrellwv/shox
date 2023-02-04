@@ -5,29 +5,27 @@
  * @author (your name)
  * @version (a version number or a date)
  */
+ 
+import edu.ufl.cise.plcsp23;
+
 public abstract class Scanner implements IScanner
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Scanner
-     */
-    public Scanner()
-    {
-        // initialise instance variables
-        x = 0;
+    // Record to represent the location in the source code
+    public record SourceLocation(int line, int column) {}
+    
+    public static enum Kind {
+        IDENT,
+        NUM_LIT,
+        PLUS,
+        TIMES,
+        EQ,
+        KW_IF,
+        KW_ELSE,
+        EOF,
+        ERROR //may be useful
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
+    final Kind kind;
+    final int pos;
+    final int length;
+    final char[] source;
 }

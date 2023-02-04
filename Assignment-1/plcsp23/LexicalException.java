@@ -8,11 +8,12 @@
  * This code may not be posted on a public web site either during or after the course.  
  */
 
+package plcsp23;
 
- 
+@SuppressWarnings("serial")
+public class LexicalException extends PLCException {
 
-public interface IStringLitToken extends IToken {
-	
-	String getValue();
-
+    public LexicalException(String message) {
+        super(message);
+    }
 }
