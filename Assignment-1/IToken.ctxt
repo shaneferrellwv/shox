@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=IToken
+comment1.params=
+comment1.target=ufl.cise.plcsp23.IToken.SourceLocation\ getSourceLocation()
+comment1.text=\r\n\ Returns\ a\ SourceLocation\ record\ containing\ the\ line\ and\ column\ number\ of\ this\ token.\r\n\ Both\ counts\ start\ numbering\ at\ 1.\r\n\ \r\n\ @return\ Line\ number\ and\ column\ of\ this\ token.\ \ \r\n
+comment2.params=
+comment2.target=ufl.cise.plcsp23.IToken.Kind\ getKind()
+comment2.text=\ Returns\ the\ kind\ of\ this\ Token\r\n\ \r\n\ @return\ kind\r\n
+comment3.params=
+comment3.target=java.lang.String\ getTokenString()
+comment3.text=\r\n\ Returns\ a\ char\ array\ containing\ the\ characters\ of\ this\ token.\r\n\ \r\n\ @return\r\n
+numComments=4
