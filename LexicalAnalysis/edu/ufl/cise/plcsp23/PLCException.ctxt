@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=PLCException
+comment1.params=message
+comment1.target=PLCException(java.lang.String)
+numComments=2
