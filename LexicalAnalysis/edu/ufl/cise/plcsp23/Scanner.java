@@ -25,11 +25,14 @@ public class Scanner implements IScanner {
         HAVE_LT,
         HAVE_GT,
         HAVE_LTMINUS,
+        IN_STRING_LIT,
+        IN_ESCAPE, 
         IN_COMMENT
     }
     int pos; //position of ch
     char ch; //next char, ch == inputChars[pos]
     int line, column;
+    String s;
     
     //constructor
     public Scanner(String input) {
@@ -53,12 +56,13 @@ public class Scanner implements IScanner {
             switch(state) {
                 case  START ->  {
                     tokenStart = pos;
+                    s = "";
                     switch (ch) {
                         case 0 -> {
                             return new Token(IToken.Kind.EOF, tokenStart, pos - tokenStart, inputChars);
                         }
                         case 32, 9, 12, 13 -> nextChar(); // white space
-                        case 10 -> nextLineChar(); // new line
+                        case 10 -> nextLineChar(); // FF
                         
                         case 38 -> { // &
                             state = State.HAVE_AMP;
@@ -152,7 +156,24 @@ public class Scanner implements IScanner {
                             107, 108, 109, 110, 111, 112, 113, 114, 115, 
                             116, 117, 118, 119, 120, 121, 122, // a..z
                             95 -> {// _ 
-                                
+                            state = State.IN_IDENT;
+                            nextChar();
+                        }
+                        case 48 -> { // 0
+                            nextChar();
+                            return new Token(IToken.Kind.NUM_LIT,tokenStart, pos - tokenStart, inputChars);
+                        }
+                        case 49, 50, 51, 52, 53, 54, 55, 56, 57 -> { // 1..9
+                            state = State.IN_NUM_LIT;
+                            nextChar();
+                        }
+                        case 34 -> { // "
+                            state = State.IN_STRING_LIT;
+                            nextChar();
+                        }
+                        case 126 -> { // ~
+                            state = State.IN_COMMENT;
+                            nextChar();
                         }
                             
                         
@@ -163,11 +184,68 @@ public class Scanner implements IScanner {
                     }
                     
                 }
+                case IN_STRING_LIT -> {
+                    System.out.print(ch + " ");
+                    if ((int)ch == 92) { // escape character \
+                        state = State.IN_ESCAPE;
+                        nextChar();
+                    }
+                    if ((int)ch == 10 || (int)ch == 13) {
+                        throw new LexicalException("LF and CR are not supported characters in string literals.");
+                    }
+                    else if ((int)ch == 34) { // closing "
+                        nextChar();
+                        return new Token(IToken.Kind.STRING_LIT, tokenStart, pos - tokenStart, inputChars);
+                    }
+                    else {
+                        nextChar();
+                    }
+                }
+                case IN_ESCAPE -> {
+                    if ((int)ch == 98 || // b
+                        (int)ch == 116 || // t
+                        (int)ch == 110 || // n
+                        (int)ch == 114 || // r
+                        (int)ch == 34 || // "
+                        (int)ch == 92) { // \
+                        state = State.IN_STRING_LIT;
+                        nextChar();
+                    }
+                    else {
+                        throw new LexicalException("\\ character not supported in string literals.");
+                    }
+                }
                 case IN_NUM_LIT -> {
-                    
+                    if ((int)ch >= 48 && (int)ch <= 57) {
+                        nextChar();
+                    }
+                    else
+                        return new Token(IToken.Kind.NUM_LIT, tokenStart, pos - tokenStart, inputChars);
+                }
+                case IN_COMMENT -> {
+                    if ((int)ch == 10) { // FF
+                        state = State.START;
+                        nextLineChar();
+                    }
+                    else {
+                        nextChar();
+                    }
                 }
                 case IN_IDENT -> {
-                    
+                    if (((int)ch >= 65 && (int)ch <= 90) || 
+                        ((int)ch >= 97 && (int)ch <= 122) ||
+                        ((int)ch >= 48 && (int)ch <= 57) ||
+                        (ch == '_')) {
+                        nextChar();
+                    }
+                    else {
+                        state = State.START;
+                        s = input.substring(tokenStart, pos);
+                        if (s.equals("image"))
+                            return new Token(IToken.Kind.RES_image, tokenStart, pos - tokenStart, inputChars);
+                        else
+                            return new Token(IToken.Kind.IDENT, tokenStart, pos - tokenStart, inputChars);
+                    }
                 }
                 case HAVE_AMP -> {
                     if (ch == '&'){
