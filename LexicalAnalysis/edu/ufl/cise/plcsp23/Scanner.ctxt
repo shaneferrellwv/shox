@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Scanner
+comment1.params=input
+comment1.target=Scanner(java.lang.String)
+comment2.params=
+comment2.target=Token\ next()
+comment3.params=
+comment3.target=Token\ scanToken()
+comment4.params=
+comment4.target=void\ nextChar()
+comment5.params=
+comment5.target=void\ nextLineChar()
+numComments=6

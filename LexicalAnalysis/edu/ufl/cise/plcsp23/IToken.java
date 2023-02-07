@@ -18,9 +18,9 @@ public interface IToken {
     public record SourceLocation(int line, int column) {}
     
     public static enum Kind {
-        IDENT,
-        NUM_LIT,
-        STRING_LIT,
+        IDENT,//
+        NUM_LIT,//
+        STRING_LIT,//
         RES_image,
         RES_pixel,
         RES_int,

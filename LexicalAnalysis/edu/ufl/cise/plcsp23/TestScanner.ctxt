@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=TestScanner
+comment1.params=t
+comment1.target=void\ checkEOF(IToken)
+comment2.params=expectedKind\ t
+comment2.target=void\ checkToken(IToken.Kind,\ IToken)
+comment3.params=
+comment3.target=void\ emptyProg()
+comment4.params=
+comment4.target=void\ onlyWhiteSpace()
+comment5.params=
+comment5.target=void\ onlyBitAnd()
+comment6.params=
+comment6.target=void\ onlyAnd()
+comment7.params=
+comment7.target=void\ test0()
+numComments=8
