@@ -2,7 +2,7 @@ package edu.ufl.cise.plcsp23;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import edu.ufl.cise.plcsp23.IToken.Kind;
-class TestScanner {    
+class Custom_TestScanner {    
 
     //check that this token is the EOF token
     void checkEOF(IToken t) {

@@ -1,5 +1,5 @@
 #BlueJ class context
-comment0.target=TestScanner
+comment0.target=Custom_TestScanner
 comment1.params=t
 comment1.target=void\ checkEOF(IToken)
 comment10.params=

@@ -37,7 +37,12 @@ public class NumLitToken implements INumLitToken
     
     @Override
     public int getValue() {
-        return Integer.parseInt(getTokenString());
+        try {
+            return Integer.parseInt(getTokenString());
+        }
+        catch(NumberFormatException e) {
+            throw new NumberFormatException("Number format error");
+        }
     }
     
     @Override
