@@ -224,6 +224,21 @@ class TestScanner {
     }
     
     @Test
+    void numLits01() throws LexicalException{
+        String input = """
+                123
+                05 240
+                """;
+        IScanner scanner =
+        CompilerComponentFactory.makeScanner(input);
+        checkToken(Kind.NUM_LIT,scanner.next());
+        checkToken(Kind.NUM_LIT,scanner.next());
+        checkToken(Kind.NUM_LIT,scanner.next());
+        checkToken(Kind.NUM_LIT,scanner.next());
+        checkEOF(scanner.next()); 
+    }
+    
+    @Test
     void onlyZero() throws LexicalException{
         String input = """
         0
@@ -336,7 +351,7 @@ class TestScanner {
         checkToken(Kind.RES_image,scanner.next());
         checkEOF(scanner.next()); 
     }
-    /*
+    
     @Test
     void onlyStringLiteral() throws LexicalException{
         String input = """
@@ -358,7 +373,7 @@ class TestScanner {
         checkToken(Kind.STRING_LIT,scanner.next());
         checkEOF(scanner.next()); 
     }
-    
+   
     @Test
     void onlyStringLiteralWithNewLine() throws LexicalException{
         String input = """
@@ -369,7 +384,7 @@ class TestScanner {
         assertThrows(LexicalException.class, () -> {scanner.next(); });
         checkEOF(scanner.next()); 
     }
-    
+     
     @Test
     void onlyStringLiteralWithLegalNewLine() throws LexicalException{
         String input = """
@@ -389,9 +404,9 @@ class TestScanner {
         """;
         IScanner scanner =
         CompilerComponentFactory.makeScanner(input);
-        //assertThrows(LexicalException.class, () -> {scanner.next(); });
+        assertThrows(LexicalException.class, () -> {scanner.next(); });
         checkEOF(scanner.next()); 
-    }*/
+    }
 }
 
 

@@ -12,22 +12,23 @@ public class Token implements IToken {
     final Kind kind;
     final int pos;
     final int length;
+    final int line;
+    final int column;
     final char[] source;
     
     //constructor initializes final fields
-    public Token(Kind kind, int pos, int length, char[] source) {
+    public Token(Kind kind, int pos, int length, int line, int column, char[] source) {
         super();
         this.kind = kind;
         this.pos = pos;
         this.length = length;
+        this.line = line;
+        this.column = column;
         this.source = source;
     }
     
     public SourceLocation getSourceLocation() {
-        int line = 0; //CHANGE LATER
-        int column = 0; // THIS TOO
         return new SourceLocation(line, column);
-
     }
     
     public Kind getKind() {
@@ -37,7 +38,7 @@ public class Token implements IToken {
     //returns the characters from the source belonging to the token
     public String getTokenString() {
         String s = "";
-        for (int i = pos; i < length; i++)
+        for (int i = pos; i < pos + length; i++)
             s += source[i];
         return s;
     }
