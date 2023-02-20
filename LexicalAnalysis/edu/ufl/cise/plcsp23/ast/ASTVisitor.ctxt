@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=ASTVisitor
+comment1.params=conditionalExpr\ arg
+comment1.target=java.lang.Object\ visitConditionalExpr(ConditionalExpr,\ java.lang.Object)
+comment2.params=binaryExpr\ arg
+comment2.target=java.lang.Object\ visitBinaryExpr(BinaryExpr,\ java.lang.Object)
+comment3.params=unaryExpr\ arg
+comment3.target=java.lang.Object\ visitUnaryExpr(UnaryExpr,\ java.lang.Object)
+comment4.params=stringLitExpr\ arg
+comment4.target=java.lang.Object\ visitStringLitExpr(StringLitExpr,\ java.lang.Object)
+comment5.params=numLitExpr\ arg
+comment5.target=java.lang.Object\ visitNumLitExpr(ufl.cise.plcsp23.ast.NumLitExpr,\ java.lang.Object)
+comment6.params=identExpr\ arg
+comment6.target=java.lang.Object\ visitIdentExpr(IdentExpr,\ java.lang.Object)
+comment7.params=constExpr\ arg
+comment7.target=java.lang.Object\ visitZExpr(ufl.cise.plcsp23.ast.ZExpr,\ java.lang.Object)
+comment8.params=randomExpr\ arg
+comment8.target=java.lang.Object\ visitRandomExpr(ufl.cise.plcsp23.ast.RandomExpr,\ java.lang.Object)
+numComments=9
