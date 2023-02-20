@@ -274,6 +274,8 @@ public class Scanner implements IScanner {
                         if (s.equals("y"))
                             return new Token(IToken.Kind.RES_y, tokenStart, pos - tokenStart, myLine, myColumn, inputChars);
                         if (s.equals("a"))
+                            return new Token(IToken.Kind.RES_a, tokenStart, pos - tokenStart, myLine, myColumn, inputChars);
+                        if (s.equals("r"))
                             return new Token(IToken.Kind.RES_r, tokenStart, pos - tokenStart, myLine, myColumn, inputChars);
                         if (s.equals("X"))
                             return new Token(IToken.Kind.RES_X, tokenStart, pos - tokenStart, myLine, myColumn, inputChars);
