@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=UnaryExpr
+comment1.params=firstToken\ op\ e
+comment1.target=UnaryExpr(IToken,\ IToken.Kind,\ Expr)
+comment2.params=v\ arg
+comment2.target=java.lang.Object\ visit(ASTVisitor,\ java.lang.Object)
+comment3.params=
+comment3.target=IToken.Kind\ getOp()
+comment4.params=
+comment4.target=Expr\ getE()
+comment5.params=
+comment5.target=int\ hashCode()
+comment6.params=obj
+comment6.target=boolean\ equals(java.lang.Object)
+comment7.params=
+comment7.target=java.lang.String\ toString()
+numComments=8

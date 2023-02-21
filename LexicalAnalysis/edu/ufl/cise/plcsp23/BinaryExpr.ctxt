@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=BinaryExpr
+comment1.params=firstToken\ left\ op\ right
+comment1.target=BinaryExpr(IToken,\ Expr,\ IToken.Kind,\ Expr)
+comment2.params=v\ arg
+comment2.target=java.lang.Object\ visit(ASTVisitor,\ java.lang.Object)
+comment3.params=
+comment3.target=Expr\ getLeft()
+comment4.params=
+comment4.target=IToken.Kind\ getOp()
+comment5.params=
+comment5.target=Expr\ getRight()
+comment6.params=
+comment6.target=int\ hashCode()
+comment7.params=obj
+comment7.target=boolean\ equals(java.lang.Object)
+comment8.params=
+comment8.target=java.lang.String\ toString()
+numComments=9

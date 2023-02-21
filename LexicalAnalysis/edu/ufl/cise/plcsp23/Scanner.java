@@ -9,6 +9,7 @@ package edu.ufl.cise.plcsp23;
  */
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Scanner implements IScanner {
     // class variables

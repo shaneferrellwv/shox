@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=ASTNode
+comment1.params=firstToken
+comment1.target=ASTNode(IToken)
+comment2.params=
+comment2.target=IToken\ getFirstToken()
+comment3.params=
+comment3.target=int\ getLine()
+comment4.params=
+comment4.target=int\ getColumn()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6

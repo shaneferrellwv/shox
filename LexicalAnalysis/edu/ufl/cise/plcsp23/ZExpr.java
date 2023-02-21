@@ -10,15 +10,22 @@
 
 package edu.ufl.cise.plcsp23;
 
-public class CompilerComponentFactory {
-    public static IScanner makeScanner(String input) {
-        //Add statement to return an instance of your scanner
-        return new Scanner(input);
+import edu.ufl.cise.plcsp23.IToken;
+import edu.ufl.cise.plcsp23.PLCException;
+
+public class ZExpr extends Expr {
+
+    public ZExpr(IToken firstToken) {
+        super(firstToken);
+    }
+
+    @Override
+    public Object visit(ASTVisitor v, Object arg) throws PLCException {
+        return v.visitZExpr(this, arg);
     }
     
-    public static IParser makeAssignment2Parser(String input) throws LexicalException {
-        //add code to create a scanner and parser and return the parser.
-        IScanner scanner = makeScanner(input);
-        return 
+    public int getValue() {
+        return 255;
     }
+
 }
