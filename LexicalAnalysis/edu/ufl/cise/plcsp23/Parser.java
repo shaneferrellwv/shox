@@ -91,9 +91,9 @@ public class Parser implements IParser
     private Expr power() throws SyntaxException {
         Expr expr = additive();
         
-        while (match(Arrays.asList(IToken.Kind.EXP))) {
+        if (match(Arrays.asList(IToken.Kind.EXP))) {
             IToken operator = previous();
-            Expr right = additive();
+            Expr right = power();
             expr = new BinaryExpr(firstToken, expr, operator, right);
         }
 
