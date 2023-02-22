@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=BinaryExpr
 comment1.params=firstToken\ left\ op\ right
-comment1.target=BinaryExpr(IToken,\ Expr,\ IToken.Kind,\ Expr)
+comment1.target=BinaryExpr(IToken,\ Expr,\ IToken,\ Expr)
 comment2.params=v\ arg
 comment2.target=java.lang.Object\ visit(ASTVisitor,\ java.lang.Object)
 comment3.params=

@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=UnaryExpr
 comment1.params=firstToken\ op\ e
-comment1.target=UnaryExpr(IToken,\ IToken.Kind,\ Expr)
+comment1.target=UnaryExpr(IToken,\ IToken,\ Expr)
 comment2.params=v\ arg
 comment2.target=java.lang.Object\ visit(ASTVisitor,\ java.lang.Object)
 comment3.params=

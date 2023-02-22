@@ -10,144 +10,162 @@ package edu.ufl.cise.plcsp23;
 
 import java.util.List;
 import java.util.Arrays;
+import edu.ufl.cise.plcsp23.SyntaxException;
 
 public class Parser implements IParser
 {
-    private final List<Token> tokens;
+    private final List<IToken> tokens;
     private int current = 0;
-    private Token firstToken;
+    private IToken firstToken;
     
-    Parser(List<Token> tokens) {
+    Parser(List<IToken> tokens) {
         this.tokens = tokens;
+        firstToken = tokens.get(0);
+        //System.out.println(tokens);
     }
     
     @Override
     public AST parse() throws PLCException {
+        if (firstToken.getKind() == IToken.Kind.EOF)
+            throw new SyntaxException("No empty expressions allowed");
+        
         return expression();
     }
     
-    private Expr expression() { 
-        Expr expr;
-        
+    private Expr expression() throws SyntaxException {
         if (match(Arrays.asList(IToken.Kind.RES_if))) {
             return conditional();
         }
         
-        expr = or();
-        
-        return expr;
+        return or();
     }
     
-    private Expr or() {
+    private Expr conditional() throws SyntaxException {
+        Expr guard = expression();
+        //System.out.println(guard);
+        consume(IToken.Kind.QUESTION, "Expect '?' after expression.");
+        Expr trueCase = expression();
+        //System.out.println(trueCase);
+        consume(IToken.Kind.QUESTION, "Expect '?' after expression.");
+        Expr falseCase = expression();
+        //System.out.println(falseCase);
+        return new ConditionalExpr(firstToken, guard, trueCase, falseCase);
+    }
+    
+    private Expr or() throws SyntaxException {
         Expr expr = and();
         
-        while (match(Arrays.asList(IToken.Kind.BITOR, IToken.Kind.OR))) {
-            Token operator = previous();
+        while (match(Arrays.asList(IToken.Kind.OR, IToken.Kind.BITOR))) {
+            IToken operator = previous();
             Expr right = and();
-            expr = new BinaryExpr(this.tokens.get(current), expr, operator.kind, right);
+            expr = new BinaryExpr(firstToken, expr, operator, right);
         }
-        
+
         return expr;
     }
     
-    private Expr and() {
+    private Expr and() throws SyntaxException {
         Expr expr = comparison();
         
-        while (match(Arrays.asList(IToken.Kind.BITAND, IToken.Kind.AND))) {
-            Token operator = previous();
+        while (match(Arrays.asList(IToken.Kind.AND, IToken.Kind.BITAND))) {
+            IToken operator = previous();
             Expr right = comparison();
-            expr = new BinaryExpr(this.tokens.get(current), expr, operator.kind, right);
+            expr = new BinaryExpr(firstToken, expr, operator, right);
         }
-        
+
         return expr;
     }
     
-    private Expr comparison() {
+    private Expr comparison() throws SyntaxException {
         Expr expr = power();
         
         while (match(Arrays.asList(IToken.Kind.LT, IToken.Kind.GT, IToken.Kind.EQ, IToken.Kind.LE, IToken.Kind.GE))) {
-            Token operator = previous();
+            IToken operator = previous();
             Expr right = power();
-            expr = new BinaryExpr(this.tokens.get(current), expr, operator.kind, right);
+            expr = new BinaryExpr(firstToken, expr, operator, right);
         }
-        
+
         return expr;
     }
     
-    private Expr power() {
+    private Expr power() throws SyntaxException {
         Expr expr = additive();
         
         while (match(Arrays.asList(IToken.Kind.EXP))) {
-            Token operator = previous();
+            IToken operator = previous();
             Expr right = additive();
-            expr = new BinaryExpr(this.tokens.get(current), expr, operator.kind, right);
+            expr = new BinaryExpr(firstToken, expr, operator, right);
         }
-        
+
         return expr;
     }
     
-    private Expr additive() {
+    private Expr additive() throws SyntaxException {
         Expr expr = multiplicative();
         
         while (match(Arrays.asList(IToken.Kind.PLUS, IToken.Kind.MINUS))) {
-            Token operator = previous();
+            IToken operator = previous();
             Expr right = multiplicative();
-            expr = new BinaryExpr(this.tokens.get(current), expr, operator.kind, right);
+            expr = new BinaryExpr(firstToken, expr, operator, right);
         }
-        
+
         return expr;
     }
     
-    private Expr multiplicative() {
+    private Expr multiplicative() throws SyntaxException {
         Expr expr = unary();
         
         while (match(Arrays.asList(IToken.Kind.TIMES, IToken.Kind.DIV, IToken.Kind.MOD))) {
-            Token operator = previous();
+            IToken operator = previous();
             Expr right = unary();
-            expr = new BinaryExpr(this.tokens.get(current), expr, operator.kind, right);
+            expr = new BinaryExpr(firstToken, expr, operator, right);
         }
-        
+
         return expr;
     }
     
-    private Expr unary() {
-        if (match(Arrays.asList(IToken.Kind.BANG, IToken.Kind.MINUS, IToken.Kind.RES_sin, IToken.Kind.RES_cosin, IToken.Kind.RES_atan))) {
-          Token operator = previous();
-          Expr right = unary();
-          return new UnaryExpr(this.tokens.get(current), operator.kind, right);
+    private Expr unary() throws SyntaxException {
+        if (match(Arrays.asList(IToken.Kind.BANG, IToken.Kind.MINUS, IToken.Kind.RES_sin, IToken.Kind.RES_cos, IToken.Kind.RES_atan))) {
+            IToken operator = previous();
+            Expr right = unary();
+            return new UnaryExpr(firstToken, operator, right);
         }
-    
+        
         return primary();
     }
     
-    private Expr primary() {
-        if (match(Arrays.asList(IToken.Kind.STRING_LIT)))
-            return new StringLitExpr(this.tokens.get(current));
-            
-        if (match(Arrays.asList(IToken.Kind.NUM_LIT)))
-            return new NumLitExpr(this.tokens.get(current));
-            
-        if (match(Arrays.asList(IToken.Kind.IDENT)))
-            return new IdentExpr(this.tokens.get(current));
-        
-        if (match((Arrays.asList(IToken.Kind.LPAREN)))) {
+    private Expr primary() throws SyntaxException {
+        if (match(Arrays.asList(IToken.Kind.STRING_LIT))) {
+            return new StringLitExpr(previous());
+        }
+        if (match(Arrays.asList(IToken.Kind.NUM_LIT))) {
+            return new NumLitExpr(previous());
+        }
+        if (match(Arrays.asList(IToken.Kind.IDENT))) {
+            return new IdentExpr(previous());
+        }
+        if (match(Arrays.asList(IToken.Kind.RES_Z))) {
+            return new ZExpr(previous());
+        }
+        if (match(Arrays.asList(IToken.Kind.RES_rand))) {
+            return new RandomExpr(previous());
+        }
+        // parentheses/grouping
+        if (match(Arrays.asList(IToken.Kind.LPAREN))) {
             Expr expr = expression();
             consume(IToken.Kind.RPAREN, "Expect ')' after expression.");
-            return expression();
+            return expr;
         }
         
-        if (match(Arrays.asList(IToken.Kind.RES_Z)))
-            return new ZExpr(this.tokens.get(current));
+        throw new SyntaxException("Invalid expression");
+    }
+    
+    private IToken consume(IToken.Kind kind, String message) throws SyntaxException {
+        if (check(kind))
+            return advance();
             
-        if (match(Arrays.asList(IToken.Kind.RES_rand)))
-            return new RandomExpr(this.tokens.get(current));
+        throw new SyntaxException(message);
     }
-    
-    private Expr conditional() {
-        
-    }
-    
-    
     
     private boolean match(List<IToken.Kind> kinds) {
         for (IToken.Kind kind : kinds) {
@@ -160,33 +178,26 @@ public class Parser implements IParser
     }
     
     private boolean check(IToken.Kind kind) {
-        if (isAtEnd()) 
+        if (isAtEnd())
             return false;
         return peek().getKind() == kind;
     }
     
-    private Token advance() {
+    private IToken advance() {
         if (!isAtEnd())
             current++;
         return previous();
-    }  
+    }
     
     private boolean isAtEnd() {
         return peek().getKind() == IToken.Kind.EOF;
     }
     
-    private Token peek() {
+    private IToken peek() {
         return tokens.get(current);
     }
     
-    private Token previous() {
+    private IToken previous() {
         return tokens.get(current - 1);
-    }
-    
-    private Token consume(IToken.Kind kind, String message) throws SyntaxException {
-        if (check(kind))
-            return advance();
-        
-        throw SyntaxException(message);
     }
 }

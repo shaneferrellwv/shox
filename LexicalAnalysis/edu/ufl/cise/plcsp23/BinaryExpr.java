@@ -23,10 +23,10 @@ public class BinaryExpr extends Expr {
 
 
 
-    public BinaryExpr(IToken firstToken, Expr left, Kind op, Expr right) {
+    public BinaryExpr(IToken firstToken, Expr left, IToken op, Expr right) {
         super(firstToken);
         this.left = left;
-        this.op = op;
+        this.op = op.getKind();
         this.right = right;        
     }
 

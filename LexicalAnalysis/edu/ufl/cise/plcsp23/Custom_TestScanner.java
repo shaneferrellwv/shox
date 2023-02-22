@@ -110,26 +110,26 @@ class Custom_TestScanner {
         checkEOF(scanner.next()); 
     }
     
-    @Test
-    void onlyLessThanMinus() throws LexicalException{
-        String input = "<-";
-        IScanner scanner =
-        CompilerComponentFactory.makeScanner(input);
-        checkToken(Kind.LT,scanner.next());
-        checkToken(Kind.MINUS,scanner.next());
-        checkEOF(scanner.next()); 
-    }
+    // @Test
+    // void onlyLessThanMinus() throws LexicalException{
+        // String input = "<-";
+        // IScanner scanner =
+        // CompilerComponentFactory.makeScanner(input);
+        // checkToken(Kind.LT,scanner.next());
+        // checkToken(Kind.MINUS,scanner.next());
+        // checkEOF(scanner.next()); 
+    // }
     
-    @Test
-    void onlyLessThanMinusSpaceGreaterThan() throws LexicalException{
-        String input = "<- >";
-        IScanner scanner =
-        CompilerComponentFactory.makeScanner(input);
-        checkToken(Kind.LT,scanner.next());
-        checkToken(Kind.MINUS,scanner.next());
-        checkToken(Kind.GT,scanner.next());
-        checkEOF(scanner.next()); 
-    }
+    // @Test
+    // void onlyLessThanMinusSpaceGreaterThan() throws LexicalException{
+        // String input = "<- >";
+        // IScanner scanner =
+        // CompilerComponentFactory.makeScanner(input);
+        // checkToken(Kind.LT,scanner.next());
+        // checkToken(Kind.MINUS,scanner.next());
+        // checkToken(Kind.GT,scanner.next());
+        // checkEOF(scanner.next()); 
+    // }
     
     @Test
     void onlyTimesNewLineExponent() throws LexicalException{

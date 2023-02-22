@@ -2,4 +2,6 @@
 comment0.target=CompilerComponentFactory
 comment1.params=input
 comment1.target=IScanner\ makeScanner(java.lang.String)
-numComments=2
+comment2.params=input
+comment2.target=IParser\ makeAssignment2Parser(java.lang.String)
+numComments=3

@@ -21,9 +21,9 @@ public class UnaryExpr extends Expr {
     final Kind op;
     final Expr e;    
     
-    public UnaryExpr(IToken firstToken, Kind op, Expr e) {
+    public UnaryExpr(IToken firstToken, IToken op, Expr e) {
         super(firstToken);
-        this.op = op;
+        this.op = op.getKind();
         this.e = e;
     }
 
