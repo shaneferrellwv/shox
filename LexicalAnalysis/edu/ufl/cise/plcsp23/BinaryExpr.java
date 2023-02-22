@@ -17,7 +17,6 @@ import edu.ufl.cise.plcsp23.IToken.Kind;
 import edu.ufl.cise.plcsp23.PLCException;
 
 public class BinaryExpr extends Expr {
-    
     Expr left;
     Kind op;
     Expr right;
