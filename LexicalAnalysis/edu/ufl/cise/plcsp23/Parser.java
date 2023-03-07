@@ -11,6 +11,16 @@ package edu.ufl.cise.plcsp23;
 import java.util.List;
 import java.util.Arrays;
 import edu.ufl.cise.plcsp23.SyntaxException;
+import edu.ufl.cise.plcsp23.ast.AST;
+import edu.ufl.cise.plcsp23.ast.BinaryExpr;
+import edu.ufl.cise.plcsp23.ast.ConditionalExpr;
+import edu.ufl.cise.plcsp23.ast.Expr;
+import edu.ufl.cise.plcsp23.ast.IdentExpr;
+import edu.ufl.cise.plcsp23.ast.NumLitExpr;
+import edu.ufl.cise.plcsp23.ast.RandomExpr;
+import edu.ufl.cise.plcsp23.ast.StringLitExpr;
+import edu.ufl.cise.plcsp23.ast.UnaryExpr;
+import edu.ufl.cise.plcsp23.ast.ZExpr;
 
 public class Parser implements IParser
 {
@@ -56,7 +66,7 @@ public class Parser implements IParser
         Expr expr = and();
         
         while (match(Arrays.asList(IToken.Kind.OR, IToken.Kind.BITOR))) {
-            IToken operator = previous();
+            IToken.Kind operator = previous().getKind();
             Expr right = and();
             expr = new BinaryExpr(firstToken, expr, operator, right);
         }
@@ -68,7 +78,7 @@ public class Parser implements IParser
         Expr expr = comparison();
         
         while (match(Arrays.asList(IToken.Kind.AND, IToken.Kind.BITAND))) {
-            IToken operator = previous();
+            IToken.Kind operator = previous().getKind();
             Expr right = comparison();
             expr = new BinaryExpr(firstToken, expr, operator, right);
         }
@@ -80,7 +90,7 @@ public class Parser implements IParser
         Expr expr = power();
         
         while (match(Arrays.asList(IToken.Kind.LT, IToken.Kind.GT, IToken.Kind.EQ, IToken.Kind.LE, IToken.Kind.GE))) {
-            IToken operator = previous();
+            IToken.Kind operator = previous().getKind();
             Expr right = power();
             expr = new BinaryExpr(firstToken, expr, operator, right);
         }
@@ -92,7 +102,7 @@ public class Parser implements IParser
         Expr expr = additive();
         
         if (match(Arrays.asList(IToken.Kind.EXP))) {
-            IToken operator = previous();
+            IToken.Kind operator = previous().getKind();
             Expr right = power();
             expr = new BinaryExpr(firstToken, expr, operator, right);
         }
@@ -104,7 +114,7 @@ public class Parser implements IParser
         Expr expr = multiplicative();
         
         while (match(Arrays.asList(IToken.Kind.PLUS, IToken.Kind.MINUS))) {
-            IToken operator = previous();
+            IToken.Kind operator = previous().getKind();
             Expr right = multiplicative();
             expr = new BinaryExpr(firstToken, expr, operator, right);
         }
@@ -116,7 +126,7 @@ public class Parser implements IParser
         Expr expr = unary();
         
         while (match(Arrays.asList(IToken.Kind.TIMES, IToken.Kind.DIV, IToken.Kind.MOD))) {
-            IToken operator = previous();
+            IToken.Kind operator = previous().getKind();
             Expr right = unary();
             expr = new BinaryExpr(firstToken, expr, operator, right);
         }
@@ -126,7 +136,7 @@ public class Parser implements IParser
     
     private Expr unary() throws SyntaxException {
         if (match(Arrays.asList(IToken.Kind.BANG, IToken.Kind.MINUS, IToken.Kind.RES_sin, IToken.Kind.RES_cos, IToken.Kind.RES_atan))) {
-            IToken operator = previous();
+            IToken.Kind operator = previous().getKind();
             Expr right = unary();
             return new UnaryExpr(firstToken, operator, right);
         }

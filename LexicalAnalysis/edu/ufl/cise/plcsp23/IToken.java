@@ -47,6 +47,9 @@ public interface IToken {
         RES_atan,
         RES_if,
         RES_while,
+        RES_red,
+        RES_grn,
+        RES_blu,
         DOT, //  .
         COMMA, // ,
         QUESTION, // ?

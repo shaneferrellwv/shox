@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=ColorChannel
+comment1.params=token
+comment1.target=ColorChannel\ getColor(edu.ufl.cise.plcsp23.IToken)
+numComments=2

@@ -1,5 +1,5 @@
 #BlueJ class context
 comment0.target=IParser
 comment1.params=
-comment1.target=AST\ parse()
+comment1.target=ast.AST\ parse()
 numComments=2

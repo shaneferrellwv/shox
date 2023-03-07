@@ -11,6 +11,14 @@
 package edu.ufl.cise.plcsp23;
 
 import edu.ufl.cise.plcsp23.PLCException;
+import edu.ufl.cise.plcsp23.ast.ConditionalExpr;
+import edu.ufl.cise.plcsp23.ast.BinaryExpr;
+import edu.ufl.cise.plcsp23.ast.UnaryExpr;
+import edu.ufl.cise.plcsp23.ast.StringLitExpr;
+import edu.ufl.cise.plcsp23.ast.NumLitExpr;
+import edu.ufl.cise.plcsp23.ast.IdentExpr;
+import edu.ufl.cise.plcsp23.ast.ZExpr;
+import edu.ufl.cise.plcsp23.ast.RandomExpr;
 
 public interface ASTVisitor {
 

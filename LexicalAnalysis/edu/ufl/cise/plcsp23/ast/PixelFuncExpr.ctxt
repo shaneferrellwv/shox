@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=PixelFuncExpr
+comment1.params=firstToken\ function\ selector
+comment1.target=PixelFuncExpr(edu.ufl.cise.plcsp23.IToken,\ edu.ufl.cise.plcsp23.IToken.Kind,\ PixelSelector)
+comment2.params=v\ arg
+comment2.target=java.lang.Object\ visit(ASTVisitor,\ java.lang.Object)
+comment3.params=
+comment3.target=edu.ufl.cise.plcsp23.IToken.Kind\ getFunction()
+comment4.params=
+comment4.target=PixelSelector\ getSelector()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6

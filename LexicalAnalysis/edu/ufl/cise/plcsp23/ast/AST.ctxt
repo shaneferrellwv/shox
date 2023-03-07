@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=AST
+comment1.params=firstToken
+comment1.target=AST(edu.ufl.cise.plcsp23.IToken)
+comment2.params=
+comment2.target=edu.ufl.cise.plcsp23.IToken\ getFirstToken()
+comment3.params=
+comment3.target=int\ getLine()
+comment4.params=
+comment4.target=int\ getColumn()
+comment5.params=
+comment5.target=int\ hashCode()
+comment6.params=obj
+comment6.target=boolean\ equals(java.lang.Object)
+comment7.params=
+comment7.target=java.lang.String\ toString()
+numComments=8
