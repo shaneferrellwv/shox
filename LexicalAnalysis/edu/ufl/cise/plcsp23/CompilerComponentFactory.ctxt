@@ -4,4 +4,6 @@ comment1.params=input
 comment1.target=IScanner\ makeScanner(java.lang.String)
 comment2.params=input
 comment2.target=IParser\ makeAssignment2Parser(java.lang.String)
-numComments=3
+comment3.params=input
+comment3.target=IParser\ makeParser(java.lang.String)
+numComments=4
