@@ -39,6 +39,8 @@ import edu.ufl.cise.plcsp23.ast.Declaration;
 import edu.ufl.cise.plcsp23.ast.Statement;
 import edu.ufl.cise.plcsp23.ast.WriteStatement;
 import edu.ufl.cise.plcsp23.ast.WhileStatement;
+import edu.ufl.cise.plcsp23.ast.AssignmentStatement;
+import edu.ufl.cise.plcsp23.ast.LValue;
 
 public class Parser implements IParser
 {
@@ -129,7 +131,27 @@ public class Parser implements IParser
             List<Declaration> decList = new ArrayList<>();
             List<Statement> statementList = new ArrayList<>();
             while (!check(IToken.Kind.RCURLY)) {
-                if (match(Arrays.asList(IToken.Kind.RES_write))) {
+                if (check(IToken.Kind.IDENT)) {
+                    IToken f = peek();
+                    Ident ident = ident();
+                    PixelSelector pixel = null;
+                    ColorChannel color = null;
+                    if (match(Arrays.asList(IToken.Kind.LSQUARE))) {
+                        pixel = pixelSelector();
+                    }
+                    if (match(Arrays.asList(IToken.Kind.COLON))) {
+                        color = colorChannel();
+                        advance();
+                    }
+                    consume(IToken.Kind.ASSIGN, "Expected assignment operator in statement with LValue.");
+                    LValue lval = new LValue(f, ident, pixel, color);
+                    statementList.add(new AssignmentStatement(f, lval, expression()));
+                    if (match(Arrays.asList(IToken.Kind.RSQUARE))) {
+                    
+                    }
+                    consume(IToken.Kind.DOT, "Expected dot after statement.");
+                }
+                else if (match(Arrays.asList(IToken.Kind.RES_write))) {
                     statementList.add(new WriteStatement(previous(), expression()));
                 }
                 else if (match(Arrays.asList(IToken.Kind.RES_while))) {
@@ -281,10 +303,11 @@ public class Parser implements IParser
             
             if (match(Arrays.asList(IToken.Kind.LSQUARE))) {
                 pixel = pixelSelector();
-            }
-            if (match(Arrays.asList(IToken.Kind.COLON))) {
-                color = colorChannel();
-                advance();
+                if (match(Arrays.asList(IToken.Kind.COLON))) {
+                    color = colorChannel();
+                    advance();
+                }
+                
                 return new UnaryExprPostfix(firstToken, expr, pixel, color);
             }
             
@@ -349,7 +372,7 @@ public class Parser implements IParser
         }
         if (match(Arrays.asList(IToken.Kind.RES_x_cart, IToken.Kind.RES_y_cart,
                                 IToken.Kind.RES_a_polar, IToken.Kind.RES_r_polar))) {
-            IToken.Kind function = tokens.get(current).getKind();
+            IToken.Kind function = previous().getKind();
             consume(IToken.Kind.LSQUARE, "Expect '[' in pixel function expression.");
             PixelSelector selector = pixelSelector();
             return new PixelFuncExpr(firstToken, function, selector);
