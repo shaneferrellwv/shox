@@ -102,12 +102,7 @@ public class Parser implements IParser
                 }
                 Ident ident = new Ident(consume(IToken.Kind.IDENT, "Expected ident in name def."));
                 params.add(new NameDef(firstToken, type, dimension, ident));
-                try {
-                    consume(IToken.Kind.COMMA, "Expected comma in parameter list.");
-                }
-                catch(SyntaxException e) {
-                    
-                }
+                consume(IToken.Kind.COMMA, "Expected comma in parameter list.");
             }
         }
         catch(SyntaxException e) {
@@ -153,6 +148,7 @@ public class Parser implements IParser
                 }
                 else if (match(Arrays.asList(IToken.Kind.RES_write))) {
                     statementList.add(new WriteStatement(previous(), expression()));
+                    consume(IToken.Kind.DOT, "Expected dot after statement.");
                 }
                 else if (match(Arrays.asList(IToken.Kind.RES_while))) {
                     statementList.add(new WhileStatement(previous(), expression(), block()));
