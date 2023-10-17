@@ -1,6 +1,6 @@
 # shox
 
-``Shox`` is a compiled programming language created by Shane Ferrell, adapted from the ``Lox`` programming language by *Crafting Interpreters*.
+``Shox`` is a compiled programming language created by Shane Ferrell, adapted from the ``Pico`` programming language by *The Digital Darkroom*.
 
 ``Shox``'s strengths allow it to be used for raw image editing and transformations.
 
