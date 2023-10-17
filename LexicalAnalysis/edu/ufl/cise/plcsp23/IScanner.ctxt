@@ -1,6 +1,0 @@
-#BlueJ class context
-comment0.target=IScanner
-comment1.params=
-comment1.target=IToken\ next()
-comment1.text=\r\n\ Return\ an\ IToken\ and\ advance\ the\ internal\ position\ so\ that\ subsequent\ calls\r\n\ will\ return\ subsequent\ ITokens.\r\n\ \r\n\ @return\r\n\ @throws\ LexicalException\r\n
-numComments=2

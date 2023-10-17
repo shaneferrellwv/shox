@@ -1,5 +1,0 @@
-#BlueJ class context
-comment0.target=SyntaxException
-comment1.params=message
-comment1.target=SyntaxException(java.lang.String)
-numComments=2

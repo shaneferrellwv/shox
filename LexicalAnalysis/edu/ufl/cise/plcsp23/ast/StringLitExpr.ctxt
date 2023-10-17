@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=StringLitExpr
-comment1.params=firstToken
-comment1.target=StringLitExpr(edu.ufl.cise.plcsp23.IToken)
-comment2.params=
-comment2.target=java.lang.String\ getValue()
-comment3.params=
-comment3.target=java.lang.String\ toString()
-numComments=4
